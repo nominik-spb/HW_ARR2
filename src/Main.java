@@ -5,24 +5,10 @@ public class Main {
 
     public static final int SIZE = 8;
 
-    public static void rotateColors(int[][] colors, int angleVar) {
-
-        // создаем пустой аналог первоначальной матрицы
-
-        int[][] rotatedColors = new int[SIZE][SIZE];
-
-        // заполняем аналог матрицы с выводом на экран в зависимости от переданного значения поворота
-
+    public static void printMatrix(int[][] matrix) {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if (angleVar == 1) {
-                    rotatedColors[i][j] = colors[SIZE - 1 - j][i];
-                } else if (angleVar == 2) {
-                    rotatedColors[i][j] = colors[SIZE - 1 - i][SIZE - 1 - j];
-                } else {
-                    rotatedColors[i][j] = colors[j][SIZE - 1 - i];
-                }
-                System.out.format("%4d", rotatedColors[i][j]);
+                System.out.format("%4d", matrix[i][j]);
             }
             System.out.println();
         }
@@ -30,20 +16,22 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // создаем пустую матрицу
+        // создаем пустую начальную матрицу
 
         int[][] colors = new int[SIZE][SIZE];
 
-        // заполняем матрицу случайными значениями с выводом на экран
+        // заполняем матрицу случайными значениями
 
         Random random = new Random();
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 colors[i][j] = random.nextInt(256);
-                System.out.format("%4d", colors[i][j]);
             }
-            System.out.println();
         }
+
+        // вывод начальной матрицы на экран
+
+        printMatrix(colors);
 
         // ждем ввода данных пользователем
 
@@ -56,16 +44,44 @@ public class Main {
             System.out.println("3. поворот на 270°");
             String input = scanner.nextLine();
 
+            int angleVar;
+
+        // анализируем ввод пользователя
+
             if ("end".equals(input)) {
                 break;
-            } else if (Integer.parseInt(input) > 3 || Integer.parseInt(input) < 1) {
+            } else if (Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= 3) {
+                angleVar = Integer.parseInt(input);
+            } else {
                 System.out.println("введено некорректное значение\n");
                 continue;
             }
+        // создаем и заполняем альтернативную матрицу
 
-            // если введен корректный вариант поворота выполняем метод
+            int[][] rotatedColors = new int[SIZE][SIZE];
 
-            rotateColors(colors, Integer.parseInt(input));
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    switch (angleVar) {
+                        case (1):
+                            rotatedColors[i][j] = colors[SIZE - 1 - j][i];
+                            break;
+                        case (2):
+                            rotatedColors[i][j] = colors[SIZE - 1 - i][SIZE - 1 - j];
+                            break;
+                        case (3):
+                            rotatedColors[i][j] = colors[j][SIZE - 1 - i];
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+        // вывод альтернативной матрицы на экран
+
+            printMatrix (rotatedColors);
+
             break;
         }
     }
