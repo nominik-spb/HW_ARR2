@@ -34,19 +34,12 @@ public class Main {
 
         int[][] colors = new int[SIZE][SIZE];
 
-        // заполняем матрицу случайными значениями
+        // заполняем матрицу случайными значениями с выводом на экран
 
         Random random = new Random();
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 colors[i][j] = random.nextInt(256);
-            }
-        }
-
-        // выводим матрицу на экран
-
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
                 System.out.format("%4d", colors[i][j]);
             }
             System.out.println();
